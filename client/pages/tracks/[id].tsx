@@ -1,24 +1,17 @@
 import { Button, Card, Grid, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import MainLayout from "../../layouts/MainLayout";
 import { ITrack } from "../../types/track";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
+import axios from "axios";
 
-const TrackPage = () => {
-  const track: ITrack = {
-    _id: "61deaf38a286850b8baa4a60",
-    listens: 0,
-    text: "Brighter than light!",
-    artist: "Insidious Space",
-    name: "Quasar",
-    comments: [],
-    audio:
-      "http://localhost:5000/audio/7008b561-0332-400a-9995-496d6d4d05fe.mp3",
-    picture:
-      "http://localhost:5000/image/56bde436-c64f-4cc1-82e4-8a2adee34a7b.jpg",
-  };
+const TrackPage = ({ serverTrack }) => {
+  const [track, setTrack] = useState<ITrack>(serverTrack);
+  const router = useRouter();
 
   return (
     <MainLayout>
@@ -29,10 +22,9 @@ const TrackPage = () => {
       </Link>
       <Grid container alignItems="center" style={{ margin: "20px 0" }}>
         <img
-          style={{ borderRadius: "16px", marginRight: "20px" }}
-          src={track.picture}
-          width={190}
-          height={190}
+          src={"http://localhost:5000/" + track.picture}
+          width={200}
+          height={200}
         />
         <Box>
           <Typography variant="h4">Title: {track.name}</Typography>
@@ -55,7 +47,7 @@ const TrackPage = () => {
         <Button variant="contained">Submit</Button>
       </Grid>
       <Box>
-        {track.comments.map((comment) => (
+        {track.comments.map((comment: any) => (
           <Card key={comment._id}>
             <Typography variant="body1">{comment.username}</Typography>
             <Typography variant="body2">{comment.text}</Typography>
@@ -67,3 +59,12 @@ const TrackPage = () => {
 };
 
 export default TrackPage;
+
+export const getServersideProps: GetServerSideProps = async ({ params }) => {
+  const response = await axios.get("http://localhost:5000/tracks/" + params.id);
+  return {
+    props: {
+      serverTrack: response.data,
+    },
+  };
+};

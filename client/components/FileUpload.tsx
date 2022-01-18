@@ -3,6 +3,7 @@ import { ChangeEvent, FC, useRef } from "react";
 interface FileUploadProps {
   setFile: Function;
   accept: string;
+  type: "image" | "audio";
 }
 
 const FileUpload: FC<FileUploadProps> = ({ setFile, accept, children }) => {
@@ -10,7 +11,7 @@ const FileUpload: FC<FileUploadProps> = ({ setFile, accept, children }) => {
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e?.target?.files !== null) {
-      setFile(e?.target?.files[0]);
+      setFile(e.target.files[0]);
     }
   };
   return (
