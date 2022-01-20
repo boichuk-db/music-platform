@@ -14,14 +14,8 @@ const Player = () => {
     (state) => state.player
   );
 
-  const {
-    pauseTrack,
-    playTrack,
-    setVolume,
-    setCurrentTime,
-    setDuration,
-    setActiveTrack,
-  } = useActions();
+  const { pauseTrack, playTrack, setVolume, setCurrentTime, setDuration } =
+    useActions();
 
   useEffect(() => {
     if (!audio) {

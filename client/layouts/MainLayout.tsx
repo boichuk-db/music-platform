@@ -18,8 +18,8 @@ const MainLayout: FC<MainLayoutProps> = ({
 }) => {
   return (
     <>
-      <Head children={""}>
-        <title>{title || "Quasar App"}</title>
+      <Head>
+        <title>{title || "Quasar Tracks"}</title>
         <meta
           name="description"
           content={"Music App based on React" + description}

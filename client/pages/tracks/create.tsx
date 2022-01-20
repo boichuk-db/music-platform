@@ -7,7 +7,7 @@ import { useInput } from "../../hooks/useInput";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-const create = () => {
+const Create = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [picture, setPicture] = useState(null);
   const [audio, setAudio] = useState(null);
@@ -29,7 +29,6 @@ const create = () => {
       axios
         .post("http://localhost:5000/tracks", formData)
         .then((resp) => {
-          console.log({ resp });
           router.push("/tracks");
         })
         .catch((e) => console.log(e));
@@ -90,4 +89,4 @@ const create = () => {
   );
 };
 
-export default create;
+export default Create;

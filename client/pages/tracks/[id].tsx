@@ -5,6 +5,7 @@ import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import axios from "axios";
+import Image from "next/image";
 import { useInput } from "../../hooks/useInput";
 
 const TrackPage = ({ serverTrack }) => {
@@ -38,8 +39,9 @@ const TrackPage = ({ serverTrack }) => {
         Back to list
       </Button>
       <Grid container style={{ margin: "20px 0" }}>
-        <img
+        <Image
           src={"http://localhost:5000/" + track.picture}
+          alt="Track Image"
           width={200}
           height={200}
         />
